@@ -23,7 +23,7 @@ selected=$( cat /var/plexguide/menu.select )
 ################################################################## CORE
 
 HEIGHT=13
-WIDTH=50
+WIDTH=35
 CHOICE_HEIGHT=5
 BACKTITLE="Visit https://PlexGuide.com - Automations Made Simple"
 TITLE="PGDrive /w $selected"
@@ -188,17 +188,20 @@ echo 'FAILURE - USING ST2: Must Configure tdrive for RCLONE' > /var/plexguide/pg
             fi
 
             #### DEPLOY a TRANSFER SYSTEM - START
-            if [ "$selected" == "Move" ]; then
+            if [ "$selected" == "Move" ]
+            then
               ansible-playbook /opt/plexguide/pg.yml --tags move1
               read -n 1 -s -r -p "Press any key to continue"
             fi
 
-            if [ "$selected" == "ZenDrive" ]; then
+            if [ "$selected" == "ZenDrive" ]
+            then
               ansible-playbook /opt/plexguide/pg.yml --tags move2
               read -n 1 -s -r -p "Press any key to continue"
             fi
 
-            if [ "$selected" == "SuperTransfer2" ]; then
+            if [ "$selected" == "SuperTransfer2" ]
+            then
               systemctl stop move 1>/dev/null 2>&1
               systemctl disable move 1>/dev/null 2>&1
               clear
@@ -207,11 +210,10 @@ echo 'FAILURE - USING ST2: Must Configure tdrive for RCLONE' > /var/plexguide/pg
               journalctl -f -u supertransfer2
               read -n 1 -s -r -p "Press any key to continue"
             fi
-            
+
             #### DEPLOY a TRANSFER SYSTEM - END
             dialog --title "NOTE!" --msgbox "\n$selected is now running!" 7 38
             echo 'SUCCESS - $selected is now running!' > /var/plexguide/pg.log && bash /opt/plexguide/scripts/log.sh
-
             ;;
             F)
             ansible-playbook /opt/plexguide/scripts/test/check-remove/tasks/main.yml
