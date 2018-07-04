@@ -19,7 +19,7 @@ export NCURSES_NO_UTF8_ACS=1
 echo 'INFO - @Deploy Choice Menu for Mount Selection' > /var/plexguide/pg.log && bash /opt/plexguide/scripts/log.sh
 
 ##################################################### DEPLOYMENT SYSTEM - START
-        HEIGHT=11
+        HEIGHT=12
         WIDTH=44
         CHOICE_HEIGHT=5
         BACKTITLE="Visit PlexGuide.com - Automations Made Simple"
