@@ -162,6 +162,15 @@ echo 'FAILURE - Using MOVE: Must Configure gdrive for RCLONE' > /var/plexguide/p
             exit
             fi
 
+            if [[ "$selected" == "ZenDrive" && "$gdrive" != "[gdrive]" ]]
+              then
+echo 'FAILURE - Using MOVE: Must Configure gdrive for RCLONE' > /var/plexguide/pg.log && bash /opt/plexguide/scripts/log.sh
+            dialog --title "WARNING!" --msgbox "\nYou are UTILZING PG Move!\n\nTo work, you MUST have a gdrive\nconfiguration in RClone!" 0 0
+            bash /opt/plexguide/menus/mount/unencrypted.sh
+            exit
+            else
+            fi
+
             if [[ "$selected" == "SuperTransfer2" && "$tdrive" != "[tdrive]" ]]
               then
 echo 'FAILURE - USING ST2: Must Configure tdrive for RCLONE' > /var/plexguide/pg.log && bash /opt/plexguide/scripts/log.sh
@@ -170,12 +179,26 @@ echo 'FAILURE - USING ST2: Must Configure tdrive for RCLONE' > /var/plexguide/pg
             exit
             fi
 
-            #### DEPLOY a TRANSFER SYSTEM - START
-            if [ "$selected" == "Move" ]
+            if [[ "$selected" == "SuperTransfer2" && "$gdrive" != "[gdrive]" ]]
               then
-              ansible-playbook /opt/plexguide/pg.yml --tags move
+echo 'FAILURE - USING ST2: Must Configure tdrive for RCLONE' > /var/plexguide/pg.log && bash /opt/plexguide/scripts/log.sh
+            dialog --title "WARNING!" --msgbox "\nYou are UTILZING PG SuperTransfer2!\n\nTo work, you MUST have a tdrive\nconfiguration in RClone!" 0 0
+            bash /opt/plexguide/menus/mount/unencrypted.sh
+            exit
+            fi
+
+            #### DEPLOY a TRANSFER SYSTEM - START
+            if [ "$selected" == "Move" ]; then
+              ansible-playbook /opt/plexguide/pg.yml --tags move1
               read -n 1 -s -r -p "Press any key to continue"
-            else
+            fi
+
+            if [ "$selected" == "ZenDrive" ]; then
+              ansible-playbook /opt/plexguide/pg.yml --tags move2
+              read -n 1 -s -r -p "Press any key to continue"
+            fi
+
+            if [ "$selected" == "SuperTransfer2" ]; then
               systemctl stop move 1>/dev/null 2>&1
               systemctl disable move 1>/dev/null 2>&1
               clear
@@ -184,6 +207,7 @@ echo 'FAILURE - USING ST2: Must Configure tdrive for RCLONE' > /var/plexguide/pg
               journalctl -f -u supertransfer2
               read -n 1 -s -r -p "Press any key to continue"
             fi
+            
             #### DEPLOY a TRANSFER SYSTEM - END
             dialog --title "NOTE!" --msgbox "\n$selected is now running!" 7 38
             echo 'SUCCESS - $selected is now running!' > /var/plexguide/pg.log && bash /opt/plexguide/scripts/log.sh

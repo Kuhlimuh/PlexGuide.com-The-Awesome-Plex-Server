@@ -83,7 +83,13 @@
     systemd: state=stopped name=supertransfer2 daemon_reload=yes enabled=no
     ignore_errors: True
     tags:
-      - move
+      - move1
+
+  - name: Daemon-Reload
+    systemd: state=stopped name=zen daemon_reload=yes enabled=no
+    ignore_errors: True
+    tags:
+      - move1
 
   - name: Install MOVE Service
     template:
@@ -91,12 +97,12 @@
       dest: /opt/appdata/plexguide/move.sh
       force: yes
     tags:
-      - move
+      - move1
 
   - name: Stop If MOVE Service Running
     systemd: state=stopped name=move
     tags:
-      - move
+      - move1
     ignore_errors: yes
 
   - name: Install MOVE Service
@@ -105,17 +111,63 @@
       dest: /etc/systemd/system/move.service
       force: yes
     tags:
-      - move
+      - move1
 
 #  - name: Daemon-Reload
 #    systemd: state=stopped name=move daemon_reload=yes enabled=no
 #    tags:
-#      - move
+#      - move1
 
   - name: Start MOVE SERVICE
     systemd: state=started name=move daemon_reload=yes enabled=yes
     tags:
-      - move
+      - move1
+
+########################################## MOVE END
+
+########################################## MOVE START
+  - name: Daemon-Reload
+    systemd: state=stopped name=supertransfer2 daemon_reload=yes enabled=no
+    ignore_errors: True
+    tags:
+      - move2
+
+  - name: Daemon-Reload
+    systemd: state=stopped name=move daemon_reload=yes enabled=no
+    ignore_errors: True
+    tags:
+      - move2
+
+  - name: Install Zen Service
+    template:
+      src: zen_script.js2
+      dest: /opt/appdata/plexguide/zen.sh
+      force: yes
+    tags:
+      - move2
+
+  - name: Stop If ZEN Service Running
+    systemd: state=stopped name=zen
+    tags:
+      - move2
+    ignore_errors: yes
+
+  - name: Install MOVE Service
+    template:
+      src: zen.js2
+      dest: /etc/systemd/system/zen.service
+      force: yes
+    tags:
+      - move2
+
+#  - name: Daemon-Reload
+#    systemd: state=stopped name=move daemon_reload=yes enabled=no
+#    tags:
+#      - move1
+  - name: Start ZEN SERVICE
+    systemd: state=started name=zen daemon_reload=yes enabled=yes
+    tags:
+      - move2
 ########################################## MOVE END
 
 ########################################## ALTERNATIVE MOVE START
@@ -195,7 +247,7 @@
     systemd: state=started name=gdrive daemon_reload=yes enabled=yes
     tags:
       - gdrive
-      
+
 ########### TDRIVE
   - name: Stop If TCRYPT Service Running
     systemd: state=stopped name=tcrypt enabled=no
