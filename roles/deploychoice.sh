@@ -25,9 +25,9 @@ echo 'INFO - @Deploy Choice Menu for Mount Selection' > /var/plexguide/pg.log &&
         BACKTITLE="Visit PlexGuide.com - Automations Made Simple"
         TITLE="Deploy a Mounting System"
 
-        OPTIONS=(A "PGDrive /w PG Move (Standard)"
-                 B "PGDrive /w PG Move (ZenDrive)"
-                 C "PGDrive /w PG ST2  (TeamDrives)"
+        OPTIONS=(A "PGDrive   /w PG Move (Standard)"
+                 B "PGDrive   /w PG Move (ZenDrive)"
+                 C "PGDrive   /w PG ST2  (TeamDrives)"
                  D "PlexDrive /w PG Move (Traditional)"
                  Z "Exit")
 
