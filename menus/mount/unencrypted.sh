@@ -29,9 +29,9 @@ BACKTITLE="Visit https://PlexGuide.com - Automations Made Simple"
 TITLE="PGDrive /w $selected"
 MENU="Make a Selection:"
 
-OPTIONS=(B "Config : RClone"
-         C "Deploy : PGDrive"
-         D "Deploy : $selected"
+OPTIONS=(A "Config : RClone"
+         B "Deploy : PGDrive"
+         C "Deploy : $selected"
          Z "Exit")
 
 CHOICE=$(dialog --clear \
@@ -44,7 +44,7 @@ CHOICE=$(dialog --clear \
 
 clear
 case $CHOICE in
-        B)
+        A)
             #### RClone Missing Warning - START
             file="/usr/bin/rclone" 1>/dev/null 2>&1
               if [ -e "$file" ]
@@ -82,7 +82,7 @@ echo 'INFO - Configured RCLONE for PG Drive' > /var/plexguide/pg.log && bash /op
                echo 'INFO - Deployed PGChecker.bin - PGChecker.Bin' > /var/plexguide/pg.log && bash /opt/plexguide/scripts/log.sh
             fi
             ;;
-        C)
+        B)
             #### RCLONE MISSING START
             file="/usr/bin/rclone" 1>/dev/null 2>&1
               if [ -e "$file" ]
@@ -135,7 +135,7 @@ echo 'INFO - DEPLOYED PG Drive' > /var/plexguide/pg.log && bash /opt/plexguide/s
             read -n 1 -s -r -p "Press any key to continue"
             dialog --title "NOTE" --msgbox "\nPG Drive Deployed!!" 0 0
             ;;
-        D)
+        C)
             #### RClone Missing Warning -START
             file="/usr/bin/rclone" 1>/dev/null 2>&1
               if [ -e "$file" ]
