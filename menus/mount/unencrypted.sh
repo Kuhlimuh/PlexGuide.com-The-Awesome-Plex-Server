@@ -22,7 +22,7 @@ echo 'INFO - @Unencrypted PG Drive Menu' > /var/plexguide/pg.log && bash /opt/pl
 selected=$( cat /var/plexguide/menu.select )
 ################################################################## CORE
 
-HEIGHT=12
+HEIGHT=11
 WIDTH=35
 CHOICE_HEIGHT=4
 BACKTITLE="Visit https://PlexGuide.com - Automations Made Simple"
