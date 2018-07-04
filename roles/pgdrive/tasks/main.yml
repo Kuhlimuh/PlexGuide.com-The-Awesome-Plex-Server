@@ -86,7 +86,7 @@
       - move1
 
   - name: Daemon-Reload
-    systemd: state=stopped name=zen daemon_reload=yes enabled=no
+    systemd: state=stopped name=zendrive daemon_reload=yes enabled=no
     ignore_errors: True
     tags:
       - move1
@@ -141,13 +141,13 @@
   - name: Install Zen Service
     template:
       src: zen_script.js2
-      dest: /opt/appdata/plexguide/zen.sh
+      dest: /opt/appdata/plexguide/zendrive.sh
       force: yes
     tags:
       - move2
 
   - name: Stop If ZEN Service Running
-    systemd: state=stopped name=zen
+    systemd: state=stopped name=zendrive
     tags:
       - move2
     ignore_errors: yes
@@ -155,7 +155,7 @@
   - name: Install MOVE Service
     template:
       src: zen.js2
-      dest: /etc/systemd/system/zen.service
+      dest: /etc/systemd/system/zendrive.service
       force: yes
     tags:
       - move2
@@ -165,7 +165,7 @@
 #    tags:
 #      - move1
   - name: Start ZEN SERVICE
-    systemd: state=started name=zen daemon_reload=yes enabled=yes
+    systemd: state=started name=zendrive daemon_reload=yes enabled=yes
     tags:
       - move2
 ########################################## MOVE END
